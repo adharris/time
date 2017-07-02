@@ -10,6 +10,9 @@ import { Page } from './Page';
 import { Table } from 'reactstrap';
 
 import { denormalize } from 'normalizr';
+import * as Select from 'react-select';
+
+import { StaffLink, StaffSelect } from '../components';
 
 const selectStaffEntities = (state: RootState) => state.entities.staff;
 
@@ -17,8 +20,8 @@ const getEntityArray = createSelector(selectStaffEntities, staff => {
     return Object.keys(staff).map(id => staff[id] as Staff);
 });
 
-const getSortedStaff = createSelector(getEntityArray, staff => {
-    staff = staff.slice()
+export const getSortedStaff = createSelector(getEntityArray, staff => {
+    staff = staff.slice();
     staff.sort((a, b) => {
         if (a.last_name > b.last_name) { return 1; }
         if (b.last_name > a.last_name) { return -1; }
@@ -28,6 +31,7 @@ const getSortedStaff = createSelector(getEntityArray, staff => {
     });
     return staff;
 });
+
 
 export interface StaffPageProps extends RouteComponentProps<{}> {
 
@@ -41,13 +45,13 @@ interface StateProps {
 function mapStateToProps(state: RootState, props: StaffPageProps): StateProps {
     return {
         staff: getSortedStaff(state),
-    }
+    };
 }
 
 
 const mapDispatchToProps = {
 
-}
+};
 
 
 type Props = StaffPageProps & StateProps & typeof mapDispatchToProps;
@@ -64,7 +68,14 @@ class StaffPageBase extends React.PureComponent<Props> {
             <StaffRow key={staff.id} staff={staff} />);
                 
         return (
-            <Page title='Staff'>
+            <Page title="Staff">
+
+                <StaffSelect 
+                    staff={this.props.staff} 
+                    selected={this.props.staff[5]} 
+                    onSelect={console.log} 
+                />
+
                 <Table>
                     <thead>
                         <tr>
@@ -81,18 +92,18 @@ class StaffPageBase extends React.PureComponent<Props> {
 }
 
 function StaffRow(props: {staff: Staff}) {
-    let url = `/staff/${props.staff.id}/`
+    let url = `/staff/${props.staff.id}`;
     return (
         <tr>
             <td>{props.staff.id}</td>
-            <td><Link to={url}>{props.staff.first_name} {props.staff.last_name}</Link></td>
+            <td><StaffLink staff={props.staff} /></td>
         </tr>
-    )
+    );
 
 }
 
 function StaffDetail(props: {}) {
-    return <tr><td colSpan={2}><h1>Hello</h1></td></tr>
+    return <tr><td colSpan={2}><h1>Hello</h1></td></tr>;
 }
 
 export const StaffPage = connect(mapStateToProps, mapDispatchToProps)(StaffPageBase);

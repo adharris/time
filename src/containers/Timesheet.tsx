@@ -4,7 +4,7 @@ import * as React from 'react';
 import { createSelector } from 'reselect';
 import { connect, Dispatch } from  'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { Page } from './Page'
+import { Page } from './Page';
 import { Table } from 'reactstrap';
 
 import { loadPrograms } from '../store/actions';
@@ -20,22 +20,22 @@ interface StateProps {
     programs: Program[];
 }
 
-const selectPrograms = (state: RootState) => state.entities.programs
+const selectPrograms = (state: RootState) => state.entities.programs;
 const first10 = createSelector([selectPrograms], programs => Object.keys(programs).slice(0, 10).map(p => programs[p]));
 
 export function matchStateToProps(state: RootState, props: OwnProps) {
     return {
         programs: first10(state),
-    }
+    };
 }
 
 export const mapDispatchToProps = {
     loadPrograms: loadPrograms,
-}
+};
 
 export type TimesheetProps = OwnProps & StateProps & typeof mapDispatchToProps;
 
-export class TimesheetBase extends React.PureComponent<TimesheetProps, any> {
+export class TimesheetBase extends React.PureComponent<TimesheetProps> {
 
     constructor(props: TimesheetProps) {
         super(props);
@@ -52,7 +52,7 @@ export class TimesheetBase extends React.PureComponent<TimesheetProps, any> {
                 <td>{p.name}</td>
                 <td>{p.city}</td>
                 <td>{p.state}</td>
-            </tr>
+                        </tr>
         ));
 
         return (
@@ -69,7 +69,7 @@ export class TimesheetBase extends React.PureComponent<TimesheetProps, any> {
                     <tbody>{rows}</tbody>
                 </Table>
             </Page>
-        )
+        );
     }
 
 }

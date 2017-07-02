@@ -22,7 +22,7 @@ export class Page extends React.PureComponent<PageProps, PageState> {
             <div>
                 <Jumbotron fluid={true}>
                     <Container>
-                        <h1 className='display-4'>{this.props.title}</h1>
+                        <h1 className="display-4">{this.props.title}</h1>
                     </Container>
                 </Jumbotron>
                 <Container>{this.props.children}</Container>

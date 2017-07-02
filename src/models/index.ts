@@ -1,3 +1,3 @@
 
 export { Program } from './Program';
-export { Staff } from './Staff';
+export { Staff, NormalizedStaff } from './Staff';

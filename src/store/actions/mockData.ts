@@ -10,7 +10,6 @@ export const LOAD_MOCK_DATA = 'LOAD_MOCK_DATA';
 export const LOAD_MOCK_DATA_SUCCESS = 'LOAD_MOCK_DATA_SUCCESS';
 export const LOAD_MOCK_DATA_FAILURE = 'LOAD_MOCK_DATA_FAILURE';
 
-
 export function loadMockData() {
     return createApiRequest({
         endpoint: MockDataURL,

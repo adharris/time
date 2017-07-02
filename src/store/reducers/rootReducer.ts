@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux';
 
-import { entitiesReducer, EntityState } from './entities'
+import { entitiesReducer, EntityState } from './entities';
 
 
 export interface RootState {
